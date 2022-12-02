@@ -7,7 +7,7 @@ import os, copy
 from flask import request
 
 
-API_ENDPOINT = 'https://search-api-stg.byjusweb.com/byjus/web_search/'
+API_ENDPOINT = 'https://search-api.byjusweb.com/byjus/web_search/'
 
 def create_app():
     app = Flask(__name__)
@@ -20,9 +20,8 @@ app = create_app()
 
 @app.route("/get_question_by_id/<qid>/", methods=["GET"])
 def get_question(qid):
-    print(API_ENDPOINT + "/get_question_by_id/" + str(qid) + "/")
     api_response = requests.get(
-            url=API_ENDPOINT + "/get_question_by_id/" + str(qid) + "/",
+            url=API_ENDPOINT + "get_question_by_id/" + str(qid) + "/",
             headers={},
         )
     api_response = api_response.json()
@@ -33,8 +32,8 @@ def update_question():
     qid = request.form.get("qid")
     solution = request.form.get("solution")
     question = request.form.get("question")
-    api_response = requests.get(
-            url=API_ENDPOINT + "/update_question/",
+    api_response = requests.post(
+            url=API_ENDPOINT + "update_question/",
             data={
                 "question" : question,
                 "solution" : solution,
